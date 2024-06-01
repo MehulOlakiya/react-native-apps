@@ -45,12 +45,16 @@ function StartGameScreen({ onPickUpNumber }) {
     setEnteredNumber("");
   }
 
-  const marginTop = height < 450 ? 50 : 100;
+  const marginTop = height <  450 ? 50 : 100;
+
+  const screenStyle ={
+    marginTop:marginTop
+  }
 
   return (
     <ScrollView style={styles.screen}>
-      <KeyboardAvoidingView style={styles.screen} behavior="position">
-        <View style={[styles.rootContainer, { marginTop: marginTop }]}>
+      {/* // <KeyboardAvoidingView style={styles.screen} behavior="position"> */}
+        <View style={[styles.rootContainer, screenStyle]}>
           <Title>Guess My Number</Title>
           <Card>
             <InstructionText>Enter a Number</InstructionText>
@@ -75,7 +79,7 @@ function StartGameScreen({ onPickUpNumber }) {
             </View>
           </Card>
         </View>
-      </KeyboardAvoidingView>
+      {/* // </KeyboardAvoidingView> */}
     </ScrollView>
   );
 }
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
   screen: { flex: 1 },
   rootContainer: {
     flex: 1,
-    // marginTop: 100,
+    marginTop: marginTop,
     alignItems: "center",
   },
   numberInput: {

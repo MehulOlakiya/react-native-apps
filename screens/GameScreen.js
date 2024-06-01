@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, StyleSheet, View, Text, FlatList } from "react-native";
+import { Alert, StyleSheet, View, Text, FlatList ,useWindowDimensions , Dimensions} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import NumberContainer from "../components/game/NumberContainer";
@@ -25,6 +25,8 @@ function GameScreen({ userConfirmNumber, onGameOver }) {
   const initialNumber = generateRandomBetween(1, 100, userConfirmNumber);
   const [currentGuess, setCurrentGuess] = useState(initialNumber);
   const [guessRound, setGuessRound] = useState([initialNumber]);
+
+  let {height,width} = useWindowDimensions()
 
   useEffect(() => {
     if (currentGuess === userConfirmNumber) {
@@ -64,10 +66,9 @@ function GameScreen({ userConfirmNumber, onGameOver }) {
 
   const guessRoundListLength = guessRound.length;
 
-  return (
-    <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
-      <NumberContainer>{currentGuess}</NumberContainer>
+
+  let content = <>
+    <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
         <InstructionText style={styles.instructionText}>
           Higher or Lower ?
@@ -85,6 +86,39 @@ function GameScreen({ userConfirmNumber, onGameOver }) {
           </View>
         </View>
       </Card>
+  </>
+let marginTop = 100
+
+  if(width > 500){
+    content = <>
+        <View style={styles.buttonsContainerWide}>
+        <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
+              <AntDesign name="minus" size={24} />
+            </PrimaryButton>
+          </View>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, "greater")}>
+              <AntDesign name="plus" size={24} />
+            </PrimaryButton>
+          </View>
+        </View>
+    </>
+    marginTop = 30
+
+  }
+
+  let screenStyle ={
+    marginTop : marginTop
+  }
+
+  
+
+  return (
+    <View style={[styles.screen,screenStyle]}>
+      <Title>Opponent's Guess</Title>
+    {content}
       <View style={styles.listContainer}>
         {/* {guessRound.map((guess) => (
           <Text key={guess}>{guess}</Text>
@@ -105,11 +139,13 @@ function GameScreen({ userConfirmNumber, onGameOver }) {
 
 export default GameScreen;
 
+// const width = Dimensions.get('window').width
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
-    marginTop: 100,
+    // marginTop:  > 500 ? 30 : 100,
     alignItems: "center",
   },
   instructionText: {
@@ -125,4 +161,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  buttonsContainerWide:{
+    flexDirection:'row',
+    alignItems:'center'
+  }
 });
