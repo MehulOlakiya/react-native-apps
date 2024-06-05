@@ -10,6 +10,7 @@ import RecentExpenseScreen from "./screens/RecentExpenseScreen";
 import AllExpenseScreen from "./screens/AllExpenseScreen";
 import IconButton from "./components/UI/IconButton";
 import ManageExpenseScreen from "./screens/ManageExpenseScreen";
+import ExpenseContextProvider from "./store/expenses-context";
 
 export default function App() {
   const BottomTab = createBottomTabNavigator();
@@ -21,7 +22,7 @@ export default function App() {
         screenOptions={({ navigation }) => ({
           headerStyle: { backgroundColor: "#1b1717" },
           headerTintColor: "#cccccc",
-          tabBarStyle: { backgroundColor: "#1b1717" },
+          tabBarStyle: { backgroundColor: "#1b1717",marginBottom:10 },
           tabBarActiveTintColor: "#b83f3f",
           tabBarInactiveTintColor: "#cccccc",
           headerRight: ({ tintColor }) => {
@@ -65,7 +66,9 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
+      {/* <View style={styles.container}> */}
+      <ExpenseContextProvider>
+      <NavigationContainer >
         <Stack.Navigator
           screenOptions={{
             headerStyle: { backgroundColor: "#1b1717" },
@@ -88,10 +91,14 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </ExpenseContextProvider>
+      {/* </View> */}
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginBottom:10
+  },
 });
