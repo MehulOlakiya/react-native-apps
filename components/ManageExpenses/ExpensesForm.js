@@ -38,12 +38,12 @@ function ExpensesForm({
   function submitHandler() {
     const expenseData = {
       amount: +inputs.amount.value,
-      date: new Date(inputs.date.value),
+      date: inputs.date.value,
       description: inputs.description.value,
     };
 
     const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
-    const dateIsValid = expenseData.date.toString() !== "Invalid Date";
+    const dateIsValid = new Date(expenseData.date).toString() !== "Invalid Date";
     const descriptionIsValid = expenseData.description.trim().length > 0;
 
     if (!amountIsValid || !dateIsValid || !descriptionIsValid) {

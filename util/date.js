@@ -1,6 +1,6 @@
 export function getDateFormate(date) {
-  console.log("date", typeof date);
-  return date.toISOString().slice(0, 10);
+  const formateDate = new Date(date)
+  return formateDate.toISOString().slice(0, 10);
 }
 
 export function getDateMinusDate(date, days) {

@@ -22,7 +22,7 @@ export default function App() {
         screenOptions={({ navigation }) => ({
           headerStyle: { backgroundColor: "#1b1717" },
           headerTintColor: "#cccccc",
-          tabBarStyle: { backgroundColor: "#1b1717",marginBottom:10 },
+          tabBarStyle: { backgroundColor: "#1b1717",marginBottom:8 },
           tabBarActiveTintColor: "#b83f3f",
           tabBarInactiveTintColor: "#cccccc",
           headerRight: ({ tintColor }) => {
@@ -66,9 +66,9 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
+      <ExpenseContextProvider >
+      <NavigationContainer  >
       {/* <View style={styles.container}> */}
-      <ExpenseContextProvider>
-      <NavigationContainer >
         <Stack.Navigator
           screenOptions={{
             headerStyle: { backgroundColor: "#1b1717" },
@@ -90,9 +90,9 @@ export default function App() {
             }}
           />
         </Stack.Navigator>
+      {/* </View> */}
       </NavigationContainer>
       </ExpenseContextProvider>
-      {/* </View> */}
     </>
   );
 }

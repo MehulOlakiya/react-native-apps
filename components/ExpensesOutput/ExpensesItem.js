@@ -21,7 +21,7 @@ function ExpensesItem({ id, description, amount, date }) {
           <Text style={[styles.description, styles.textBase]}>
             {description}
           </Text>
-          <Text style={styles.textBase}>{getDateFormate(new Date(date))}</Text>
+          <Text style={styles.textBase}>{getDateFormate(date)}</Text>
         </View>
         <View style={styles.amountContainer}>
           <Text style={styles.amount}>{amount.toFixed(2)}</Text>

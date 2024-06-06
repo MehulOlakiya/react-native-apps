@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     color: "white",
+    marginHorizontal:12
   },
   period: {
     fontWeight: "bold",
