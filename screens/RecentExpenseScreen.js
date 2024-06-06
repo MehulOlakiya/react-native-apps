@@ -1,20 +1,33 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
-import { DUMMY_EXPENSES, ExpensesContext } from "../store/expenses-context";
-import { getDateMinusDate } from "../util/date";
+import { ExpensesContext } from "../store/expenses-context";
+import { fetchExpenses } from "../util/http";
 
 function RecentExpenseScreen() {
-  const expensesClx = useContext(ExpensesContext)
-  const recentExpenses = expensesClx.expenses.filter((expense)=>{
-    const today = new Date()
-    const date7DaysAgo = getDateMinusDate(today,7)
-    return (expense.date >= date7DaysAgo) && (expense.date <= today);
-    
-  })
-  return <ExpensesOutput expenses={recentExpenses} expensesPeriod="Last 7 days" fallbackText="No expenses registred in last 7 days." />;
+  const expensesClx = useContext(ExpensesContext);
+
+  useEffect(() => {
+    async function getExpenses() {
+      const expenses = await fetchExpenses();
+      expensesClx.setExpenses(expenses);
+    }
+    getExpenses();
+  }, []);
+
+  const recentExpenses = expensesClx.expenses.filter((expense) => {
+    console.log("expense", expense);
+    const today = new Date();
+    // const date7DaysAgo = getDateMinusDate(today, 7);
+
+    return true;
+  });
+  return (
+    <ExpensesOutput
+      expenses={recentExpenses}
+      expensesPeriod="Last 7 days"
+      fallbackText="No expenses registered in last 7 days."
+    />
+  );
 }
 
 export default RecentExpenseScreen;
-
-
-
