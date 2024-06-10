@@ -3,10 +3,10 @@ import { Alert, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import IconButton from "../components/UI/IconButton";
 
-function Map({navigation,route}) {
+function Map({ navigation, route }) {
   const initialLocation = route.params && {
     lat: route.params.initialLat,
-    lng: route.params.initialLng,
+    long: route.params.initialLong,
   };
 
   const [selectedLocation, setSelectedLocation] = useState(initialLocation);
@@ -29,25 +29,34 @@ function Map({navigation,route}) {
   }
 
   const savePickUpLocationHandler = useCallback(() => {
-    if(!selectedLocation){
-        Alert.alert('No loaction picked!',
-            "You have to pick a location(by tapping on the map) first!"
-        )
-        return;
+    if (!selectedLocation) {
+      Alert.alert(
+        "No location picked!",
+        "You have to pick a location(by tapping on the map) first!"
+      );
+      return;
     }
-    navigation.navigate('AddPlace',{pickedLat:selectedLocation.lat,pickedLong:selectedLocation.long})
+    navigation.navigate("AddPlace", {
+      pickedLat: selectedLocation.lat,
+      pickedLong: selectedLocation.long,
+    });
+  }, [navigation, selectLocationHandler]);
 
-  },[navigation,selectLocationHandler])
-
-  useLayoutEffect(()=>{
-    if(initialLocation){
+  useLayoutEffect(() => {
+    if (initialLocation) {
       return;
     }
     navigation.setOptions({
-        headerRight:(tintColor)=><IconButton icon="save" size={24} color={tintColor} onPress={savePickUpLocationHandler}/>
-    })
-  },[navigation,savePickUpLocationHandler])
-
+      headerRight: (tintColor) => (
+        <IconButton
+          icon="save"
+          size={24}
+          color={tintColor}
+          onPress={savePickUpLocationHandler}
+        />
+      ),
+    });
+  }, [navigation, savePickUpLocationHandler]);
 
   return (
     <MapView
